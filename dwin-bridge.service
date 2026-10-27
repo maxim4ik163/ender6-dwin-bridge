@@ -1,0 +1,16 @@
+[Unit]
+Description=DWIN stock screen <-> Moonraker bridge (Ender 6)
+After=moonraker.service
+Wants=moonraker.service
+
+[Service]
+Type=simple
+User=klipper
+# Replace the --port value with your adapter from `ls -l /dev/serial/by-id/`
+# (the path only, without the " -> ../../ttyUSBx" part).
+ExecStart=/usr/bin/python3 /home/klipper/screen_bridge/dwin_bridge.py --port /dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller-if00-port0 --moonraker http://127.0.0.1:7125
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
